@@ -26,7 +26,7 @@ public class User {
     private Long id;
 
     @NotNull
-    private String firstname;
+    private String firstName;
 
     @NotNull
     private String lastName;
@@ -44,12 +44,12 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
