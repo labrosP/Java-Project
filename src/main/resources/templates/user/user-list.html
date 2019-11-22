@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Manage Users</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+
+</head>
+
+<body>
+    <div id="menu"></div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Books on loan</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr th:each="user : ${users}">
+                    <td></td>
+                    <td th:text="${user.firstName}">
+                    <td th:text="${user.lastName}">
+                    <td th:text="${user.booksOnloan}">
+                    <td>
+                        <form action="#" th:action="@{|/users/delete/${user.id}|}" th:method="DELETE">
+                            <button type="submit" th:disabled="${user.booksOnloan>0}" class="btn btn-danger"
+                                th:title="${user.booksOnloan>0}?'You can\'t delete a user that has books on loan':''"
+                                data-html="true">Delete</button>
+                        </form>
+                    </td>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
