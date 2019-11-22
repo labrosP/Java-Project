@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Books</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../js/script.js"></script>
+</head>
+
+<body>
+    <div id="menu"></div>
+    <div class="container">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+
+                <tr>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Title</th>
+                    <th scope="col" th:if="${action!='list'}">Users</th>
+                    <th scope="col">Copies</th>
+                    <th scope="col">Copies on loan</th>
+                    <th scope="col">Loaned By</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.isbn}">
+                    <td th:text="${book.title}">
+
+                    <td th:text="${book.copies } ">
+                    <td th:text="${book.loaned}">
+                    <td th:text="${#strings.listJoin(book.loanerNames, ',')}">
+                            <td th:if="${action=='return'}">
+                                    <select class="form-control" th:field="${userId}">
+                                        <option th:value="${null}">Select a user</option>
+                                        <option th:each="user : ${book.loaners}" th:value="${user.id}" th:text="${user.lastName} ">
+                                        </option>
+                                    </select>
+                                </td>
+                    <td>
+                        <form action="#" th:action="@{|/books/delete/${book.isbn}|}" method="GET"
+                            th:if="${action=='list'}">
+                            <button type="submit" class="btn btn-danger"  th:disabled="${book.loaned>0}">Delete</button>
+                        </form>
+                       
+                            
+                        <form action="#" th:action="@{|/books/return/${book.isbn}|}" th:method="PUT"
+                        th:if="${action!='list'}">
+                     <button type="submit" class="btn btn-danger" >Return</button>
+                 </form>
+                    </td>
+                    
+            </tbody>
+        </table>
+
+    </div>
+</body>
+
+</html>
