@@ -13,6 +13,7 @@ public class UserDto {
     private String lastName;
     private String address;
     private List<String> bookNames;
+    private int booksOnloan;
 
     public String getFirstName() {
         return firstName;
@@ -52,6 +53,14 @@ public class UserDto {
 
     public void setBookNames(List<String> bookNames) {
         this.bookNames = bookNames;
+    }
+
+    public int getBooksOnloan() {
+        return booksOnloan;
+    }
+
+    public void setBooksOnloan(int booksOnloan) {
+        this.booksOnloan = booksOnloan;
     }
 
 }

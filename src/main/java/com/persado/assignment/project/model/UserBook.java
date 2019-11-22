@@ -1,6 +1,7 @@
 package com.persado.assignment.project.model;
 
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -40,6 +41,25 @@ public class UserBook {
     @Temporal(TemporalType.DATE)
     private Date returnDate;
 
+    @Column(nullable = false, columnDefinition = "tinyint(1) default 1")
+    private boolean onloan = true;
+
+    public UserBook(User user, Book book, Date loanDate) {
+        this.user = user;
+        this.book = book;
+        this.loanDate = loanDate;
+    }
+
+    public UserBook(User user, Book book, Date loanDate, Date returnDate) {
+        this.user = user;
+        this.book = book;
+        this.loanDate = loanDate;
+        this.returnDate = returnDate;
+    }
+
+    public UserBook() {
+    }
+
     public Long getUserBookId() {
         return userBookId;
     }
@@ -78,6 +98,14 @@ public class UserBook {
 
     public void setReturnDate(Date returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public boolean isOnloan() {
+        return onloan;
+    }
+
+    public void setOnloan(boolean onloan) {
+        this.onloan = onloan;
     }
 
 }

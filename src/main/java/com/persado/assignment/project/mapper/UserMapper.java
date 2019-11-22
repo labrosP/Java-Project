@@ -7,8 +7,12 @@ package com.persado.assignment.project.mapper;
 
 import com.persado.assignment.project.dto.UserDto;
 import com.persado.assignment.project.model.User;
+import com.persado.assignment.project.service.UserService;
 import java.util.List;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -17,10 +21,18 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public abstract class UserMapper {
 
+    @Autowired
+    private UserService userService;
+
     public abstract User dtoToEntity(UserDto userdto);
 
     public abstract UserDto entityToDto(User User);
 
     public abstract List<UserDto> entityToDtoLsit(List<User> users);
+
+    @AfterMapping
+    public void setBooksOnLoan(User user, @MappingTarget UserDto userDto) {
+        userDto.setBooksOnloan(userService.lonedBooksByUser(user.getId()));
+    }
 
 }

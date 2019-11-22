@@ -1,13 +1,12 @@
 package com.persado.assignment.project.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -29,11 +28,8 @@ public class Book {
     private int copies;
     private int copiesForLoan = 0;
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "user_book", joinColumns = {
-        @JoinColumn(name = "isbn")}, inverseJoinColumns = {
-        @JoinColumn(name = "user_id")})
-    private List<User> onLoanUsers;
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "book")
+    private List<UserBook> userbookList = new ArrayList<>(2);
 
     public String getIsbn() {
         return isbn;
@@ -75,12 +71,16 @@ public class Book {
         this.copiesForLoan = copiesForLoan;
     }
 
-    public List<User> getOnLoanUsers() {
-        return onLoanUsers;
+    public List<UserBook> getUserbookList() {
+        return userbookList;
     }
 
-    public void setOnLoanUsers(List<User> onLoanUsers) {
-        this.onLoanUsers = onLoanUsers;
+    public void addUserbook(UserBook userbook) {
+        this.userbookList.add(userbook);
+    }
+
+    public void setUserbookList(List<UserBook> userbookList) {
+        this.userbookList = userbookList;
     }
 
 }
