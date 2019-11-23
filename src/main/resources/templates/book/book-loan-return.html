@@ -3,6 +3,7 @@
 
 <head>
     <title>Books Loan/Return</title>
+    <title>Create Book</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -12,30 +13,31 @@
     </script>
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function () {
-            $("#menu").load("/menu.html");
-        });
-    </script>
+    <script src="../../js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/myStyle.css" />
 </head>
 
 <body>
     <div id="menu"></div>
+    <div class="alert alert-danger" role="alert" th:if=${error} th:text=${error}>
+    </div>
     <div class="container">
         <table class="table table-striped">
-            <thead class="thead-dark">
+            <thead class="thead">
 
                 <tr>
                     <th scope="col">ISBN</th>
                     <th scope="col">Title</th>
-                    <th scope="col" th:if="${action=='loan'}">Loan</th>
-                    <th scope="col" th:if="${action=='return'}">Return</th>
+                    <th scope="col" th:if="${action=='loan'}">Available for loan</th>
+                    <th scope="col">Users</th>
+
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="book : ${books}">
                     <td th:text="${book.isbn}">
                     <td th:text="${book.title}">
+                    <td th:if="${action=='loan'}" th:text="${book.copiesForLoan}">
                     <td>
                         <form action="#" th:action="@{|/books/return/${book.isbn}|}" th:method="PUT"
                             th:if="${action=='return'}" th:object="${userDto}">
@@ -46,11 +48,11 @@
                                         th:text="${user.lastName} ">
                                     </option>
                                 </select>
-                                <button type="submit" class="col-md-4 btn btn-danger"
+                                <button type="submit" class="col-md-4 btn btn-info"
                                     style="margin-left:5px;">Return</button>
                             </div>
                         </form>
-                        <form action="#" th:action="@{|/books/loan/${book.isbn}|}" th:method="PUT"
+                        <form action="#" th:action="@{|/books/loan/${book.isbn}|}" method="get"
                             th:if="${action=='loan'}" th:object="${userDto}">
                             <div class="row">
                                 <select class="col-md-6 form-control" th:field="${userDto.id}">
@@ -59,7 +61,7 @@
                                         th:text="${user.lastName} ">
                                     </option>
                                 </select>
-                                <button type="submit" class="col-md-4 btn btn-danger"
+                                <button type="submit" class="col-md-4 btn btn-info"
                                     style="margin-left:5px;">Loan</button>
                             </div>
                         </form>

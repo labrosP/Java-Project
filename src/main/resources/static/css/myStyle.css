@@ -1,0 +1,39 @@
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+body::after {
+    content: "";
+    background-image: url("../img/download.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    opacity: 0.2;
+    top: 56px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+}
+
+table {
+    opacity: 0.9;
+    background-color: #f8f9fa;
+}
+
+table .thead {
+    background-color: rgb(199, 220, 240);
+}
+
+.btn-save {
+    background-color: rgb(94, 154, 209) !important;
+    color: white !important;
+}
+
+.btn-cancel {
+    background-color: rgb(219, 107, 107) !important;
+    color: white !important;
+}

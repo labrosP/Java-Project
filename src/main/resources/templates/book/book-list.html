@@ -13,13 +13,16 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"
         integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/myStyle.css" />
 </head>
 
 <body>
     <div id="menu"></div>
     <div class="container">
+        <div class="alert alert-danger" role="alert" th:if=${error} th:text=${error}>
+        </div>
         <table class="table table-striped">
-            <thead class="thead-dark">
+            <thead class="thead">
 
                 <tr>
                     <th scope="col">ISBN</th>
@@ -49,19 +52,12 @@
                     <td>
                         <form action="#" th:action="@{|/books/delete/${book.isbn}|}" method="GET"
                             th:if="${action=='list'}">
-                            <button type="submit" class="btn btn-danger"  th:disabled="${book.loaned>0}">Delete</button>
+                            <button type="submit" class="btn btn-cancel"  th:disabled="${book.loaned>0}"
+                                 onclick="if (!confirmDialog('Are you sure you want to delete this book?')) return false">Delete</button>
                         </form>
-                       
-                            
-                        <form action="#" th:action="@{|/books/return/${book.isbn}|}" th:method="PUT"
-                        th:if="${action!='list'}">
-                     <button type="submit" class="btn btn-danger" >Return</button>
-                 </form>
-                    </td>
-                    
+                    </td>       
             </tbody>
         </table>
-
     </div>
 </body>
 
