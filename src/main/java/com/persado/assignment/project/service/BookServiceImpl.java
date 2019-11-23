@@ -38,6 +38,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public boolean isbnExists(String isbn) {
+        Optional<Book> res = bookRepo.findById(isbn);
+        return res.isPresent();
+    }
+
+    @Override
     public void save(BookDto book) {
         bookRepo.save(bookMapper.dtoToEntity(book));
     }
@@ -67,11 +73,17 @@ public class BookServiceImpl implements BookService {
     public void returnBook(String isbn, Long userId) {
         Optional<Book> res = bookRepo.findById(isbn);
         Optional<User> userRes = userRepo.findById(userId);
-//        if (res.isPresent() && userRes.isPresent()
-//                && res.get().getOnLoanUsers().contains(userRes.get())) {
-//            res.get().getOnLoanUsers().remove(userRes.get());
-//            bookRepo.save(res.get());
-//        }
+        if (res.isPresent() && userRes.isPresent()) {
+            Book book = res.get();
+            Optional<UserBook> userBook = book.getUserbookList().stream().
+                    filter(x -> x.getUser().getId() == userId).findAny();
+            if (userBook.isPresent()) {
+                userBook.get().setOnloan(false);
+                userBook.get().setReturnDate(new Date());
+                book.setCopiesForLoan(book.getCopiesForLoan() + 1);
+            }
+            bookRepo.save(book);
+        }
     }
 
     @Override
@@ -81,6 +93,7 @@ public class BookServiceImpl implements BookService {
         if (res.isPresent() && userRes.isPresent()) {
             Book book = res.get();
             UserBook loan = new UserBook(userRes.get(), book, new Date());
+            book.setCopiesForLoan(book.getCopiesForLoan() - 1);
             book.addUserbook(loan);
             bookRepo.save(book);
         }

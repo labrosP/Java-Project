@@ -45,7 +45,13 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public String createBook(@ModelAttribute("book") BookDto bookDto) {
+    public String createBook(Model model, @ModelAttribute("book") BookDto bookDto) {
+        if (bookService.isbnExists(bookDto.getIsbn())) {
+            model.addAttribute("error", "Book ISBN already exists.");
+            return "/book/book-create";
+        }
+        //all copes all available for loan on the creation
+        bookDto.setCopiesForLoan(bookDto.getCopies());
         bookService.save(bookDto);
         return "redirect:/books/list";
     }
@@ -79,20 +85,28 @@ public class BookController {
     @PutMapping("/return/{isbn}")
     public String returnBook(@ModelAttribute("userDto") UserDto user, @PathVariable("isbn") String isbn) {
         bookService.returnBook(isbn, user.getId());
-        return "redirect://book/book-loan-return";
+        return "redirect:/books/list/return";
     }
 
     @PutMapping("/loan/{isbn}")
-    public String loanBook(@ModelAttribute("userDto") UserDto user, @PathVariable("isbn") String isbn) {
+    public String loanBook(Model model, @ModelAttribute("userDto") UserDto user, @PathVariable("isbn") String isbn) {
         if (user.getId() == null) {
-            return "User id can not be null";
+            model.addAttribute("error", "You should select a user.");
+            return "redirect:/books/list/loan";
         }
         if (userService.lonedBooksByUser(user.getId()) >= 3) {
-            return "This user has reached max book loan";
+            List<BookDto> books = bookService.findAllAvailable();
+            for (BookDto book : books) {
+                book.setUsersAvailForLoan(userService.getUsersAvailableForLoan(book.getIsbn()));
+            }
+            model.addAttribute("error", "This user has reached max book loan");
+            model.addAttribute("books", books);
+            model.addAttribute("action", "loan");
+            model.addAttribute("userDto", new UserDto());
+            return "/book/book-loan-return";
         }
         bookService.loanBook(isbn, user.getId());
-
-        return "redirect:/book/book-loan-return";
+        return "redirect:/books/list/loan";
     }
 
 }

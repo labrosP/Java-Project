@@ -22,6 +22,8 @@ public abstract class BookMapper {
     @Autowired
     private UserMapper userMapper;
 
+    public abstract BookDto entityToDto(Book book);
+
     public abstract Book dtoToEntity(BookDto bookDto);
 
     public abstract List<BookDto> entityToDtoLsit(List<Book> books);

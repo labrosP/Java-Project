@@ -8,6 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.Length;
 
 /**
  *
@@ -18,17 +21,24 @@ import javax.persistence.Table;
 public class Book {
 
     @Id
-    @Column(name = "isbn", length = 255)
+    @Column(name = "isbn")
+    @Length(min = 10, max = 22)
+    @NotNull
+    @Pattern(regexp = "^97[8|9]([0-9]\\-?){7,10}")
+    /*   isbn is a 10 or 13 digit number, can contain
+            dashes and starts with 978 or 979 */
     private String isbn;
     @Column(length = 255)
+    @NotNull
     private String title;
-    @Column(length = 500)
+    @Column(length = 1500)
     private String summary;
     @Column(columnDefinition = "int default 0")
-    private int copies;
+    private int copies = 0;
+    @Column(columnDefinition = "int default 0")
     private int copiesForLoan = 0;
 
-    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "book")
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "book", orphanRemoval = true)
     private List<UserBook> userbookList = new ArrayList<>(2);
 
     public String getIsbn() {

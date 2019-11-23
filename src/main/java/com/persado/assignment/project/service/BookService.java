@@ -11,6 +11,8 @@ public interface BookService {
 
     public List<BookDto> findAll();
 
+    public boolean isbnExists(String isbn);
+
     public void save(BookDto book);
 
     public void deleteById(String isbn);
