@@ -5,6 +5,7 @@ import com.persado.assignment.project.mapper.UserMapper;
 import com.persado.assignment.project.repository.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,7 +27,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> findAll() {
-        return userMapper.entityToDtoLsit(userRepo.findAll());
+        return userMapper.entityToDtoLsit(userRepo.findAll(Sort.by("lastName", "firstName")));
     }
 
     @Override

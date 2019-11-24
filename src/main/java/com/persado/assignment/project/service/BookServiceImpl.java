@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,7 +35,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAll() {
-        return bookMapper.entityToDtoLsit(bookRepo.findAll());
+        return bookMapper.entityToDtoLsit(bookRepo.findAll(Sort.by("title")));
     }
 
     @Override
@@ -55,12 +56,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookDto> findAllAvailable() {
-        List<BookDto> all = findAll();
         List<BookDto> list = bookMapper.entityToDtoLsit(bookRepo.findAllAvailable());
-        for (BookDto book : list) {
-
-        }
-
         return list;
     }
 

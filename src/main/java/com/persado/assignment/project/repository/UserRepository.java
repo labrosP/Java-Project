@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT count(u) FROM UserBook bu JOIN  bu.user u WHERE bu.onloan=1 AND u.id=:userId")
     public int lonedBooksByUser(@Param(value = "userId") Long userId);
 
-    @Query("SELECT u1 FROM User u1 WHERE u1.id not in (SELECT u.id FROM UserBook bu JOIN  bu.user u WHERE bu.onloan=1 AND bu.book.isbn=:isbn)")
+    @Query("SELECT u1 FROM User u1 WHERE u1.id not in (SELECT u.id FROM UserBook bu JOIN  bu.user u WHERE bu.onloan=1 AND bu.book.isbn=:isbn) ORDER BY u1.lastName")
     public List<User> getUsersAvailableForLoan(@Param(value = "isbn") String isbn);
 
 }

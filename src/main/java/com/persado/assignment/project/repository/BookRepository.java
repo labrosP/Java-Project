@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
  */
 public interface BookRepository extends JpaRepository<Book, String> {
 
-    @Query("SELECT b FROM Book b where b.copiesForLoan>0 ORDER by b.isbn")
+    @Query("SELECT b FROM Book b where b.copiesForLoan>0 ORDER by b.title")
     public List<Book> findAllAvailable();
 
-    @Query("SELECT b FROM Book b where b.copies!=b.copiesForLoan ORDER by b.isbn")
+    @Query("SELECT b FROM Book b where b.copies!=b.copiesForLoan ORDER by b.title")
     public List<Book> findAllOnLoan();
 
     @Query("SELECT b FROM UserBook ub JOIN ub.book b where ub.user.id=:userId ORDER BY ub.loanDate")
