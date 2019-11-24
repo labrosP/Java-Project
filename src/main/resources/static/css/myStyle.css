@@ -38,12 +38,12 @@ table .thead {
 }
 
 .btn-cancel {
-    background-color: rgb(219, 107, 107) !important;
+    background-color: rgb(218, 80, 80) !important;
     color: white !important;
 }
 
 .btn-cancel:hover:enabled {
-    background-color: rgb(204, 68, 68) !important;
+    background-color: rgb(194, 55, 55) !important;
 }
 
 #error {
@@ -66,4 +66,8 @@ nav {
 
 .container h4 {
     padding-bottom: 5px;
+}
+
+.container .home {
+    padding: 20px 0px 50px;
 }
