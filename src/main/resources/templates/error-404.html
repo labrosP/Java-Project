@@ -12,7 +12,25 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <link rel="stylesheet" type="text/css" href="../css/myStyle.css" />
+    <style>
+        body::after {
+            content: "";
+            background-image: url("../img/download.jpg");
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            opacity: 0.2;
+            top: 0px;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            position: absolute;
+            z-index: -1;
+        }
+
+        #error {
+            background-color: rgb(245, 212, 212) !important;
+        }
+    </style>
 </head>
 
 <body id="error">

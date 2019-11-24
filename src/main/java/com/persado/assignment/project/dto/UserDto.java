@@ -1,6 +1,7 @@
 package com.persado.assignment.project.dto;
 
 import java.util.List;
+import javax.validation.constraints.NotBlank;
 
 /**
  *
@@ -9,7 +10,9 @@ import java.util.List;
 public class UserDto {
 
     private Long id;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
     private String address;
     private List<String> bookNames;

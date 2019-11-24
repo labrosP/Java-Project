@@ -3,6 +3,7 @@ package com.persado.assignment.project.controller;
 import com.persado.assignment.project.dto.UserDto;
 import com.persado.assignment.project.service.UserService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public String createUser(@ModelAttribute("user") UserDto userDto) {
+    public String createUser(@Valid @ModelAttribute("user") UserDto userDto) {
         userService.save(userDto);
         return "redirect:/users/list";
     }

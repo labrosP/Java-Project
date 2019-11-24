@@ -2,6 +2,8 @@ package com.persado.assignment.project.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
 
 /**
  *
@@ -9,7 +11,10 @@ import java.util.List;
  */
 public class BookDto {
 
+    @NotBlank
+    @Pattern(regexp = "^97[8|9](\\-?[0-9]){7,10}")
     private String isbn;
+    @NotBlank
     private String title;
     private String summary;
     private int copies;

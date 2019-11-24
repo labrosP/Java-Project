@@ -24,7 +24,7 @@ public class Book {
     @Column(name = "isbn")
     @Length(min = 10, max = 22)
     @NotNull
-    @Pattern(regexp = "^97[8|9]([0-9]\\-?){7,10}")
+    @Pattern(regexp = "^97[8|9](\\-?[0-9]){7,10}")
     /*   isbn is a 10 or 13 digit number, can contain
             dashes and starts with 978 or 979 */
     private String isbn;

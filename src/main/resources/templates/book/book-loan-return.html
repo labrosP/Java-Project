@@ -54,7 +54,7 @@
                                     style="margin-left:5px;">Return</button>
                             </div>
                         </form>
-                        <form action="#" th:action="@{|/books/loan/${book.isbn}|}" method="get"
+                        <form action="#" th:action="@{|/books/loan/${book.isbn}|}" th:method="PUT"
                             th:if="${action=='loan'}" th:object="${userDto}">
                             <div class="row">
                                 <select class="col-md-6 form-control" th:field="${userDto.id}">

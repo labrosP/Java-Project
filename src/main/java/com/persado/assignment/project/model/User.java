@@ -24,13 +24,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
     @NotNull
+    @Column(nullable = false)
     private String firstName;
-
     @NotNull
+    @Column(nullable = false)
     private String lastName;
-
     private String address;
 
     @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval = true, mappedBy = "user", fetch = FetchType.LAZY)

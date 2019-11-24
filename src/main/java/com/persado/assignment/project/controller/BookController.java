@@ -5,6 +5,7 @@ import com.persado.assignment.project.dto.UserDto;
 import com.persado.assignment.project.service.BookService;
 import com.persado.assignment.project.service.UserService;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +46,7 @@ public class BookController {
     }
 
     @PostMapping("/create")
-    public String createBook(Model model, @ModelAttribute("book") BookDto bookDto) {
+    public String createBook(Model model, @Valid @ModelAttribute("book") BookDto bookDto) {
         if (bookService.isbnExists(bookDto.getIsbn())) {
             model.addAttribute("error", "Book ISBN already exists.");
             return "/book/book-create";

@@ -27,12 +27,12 @@ public class UserBook {
 
     @ManyToOne
     @NotNull
-    @JoinColumn(nullable = false, name = "user_id")
+    @JoinColumn(nullable = false, name = "user_id", updatable = false)
     private User user;
 
     @ManyToOne
     @NotNull
-    @JoinColumn(nullable = false, name = "isbn")
+    @JoinColumn(nullable = false, name = "isbn", updatable = false)
     private Book book;
 
     @Temporal(TemporalType.DATE)
