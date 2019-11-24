@@ -9,7 +9,7 @@ input[type=number]::-webkit-outer-spin-button {
 body {
     height: 100%;
     margin: 0px;
-    background-image: url("../img/download.png");
+    background-image: url("../img/cover-opacity.png");
     background-size: 100% 100%;
     background-attachment: fixed;
 }
