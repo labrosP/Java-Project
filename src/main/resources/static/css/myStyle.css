@@ -33,7 +33,37 @@ table .thead {
     color: white !important;
 }
 
+.btn-save:hover {
+    background-color: rgb(61, 110, 156) !important;
+}
+
 .btn-cancel {
     background-color: rgb(219, 107, 107) !important;
     color: white !important;
+}
+
+.btn-cancel:hover:enabled {
+    background-color: rgb(204, 68, 68) !important;
+}
+
+#error {
+    background-color: rgb(245, 212, 212) !important;
+}
+
+nav {
+    background-color: #0f5a8b;
+
+
+}
+
+.navbar-brand {
+    font-size: 1.45rem !important;
+}
+
+.container {
+    padding-top: 20px;
+}
+
+.container h4 {
+    padding-bottom: 5px;
 }

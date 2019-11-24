@@ -5,13 +5,13 @@
     <title>Create Book</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="../js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="../css/myStyle.css" />
 </head>
@@ -19,6 +19,7 @@
 <body>
     <div id="menu"></div>
     <div class="container">
+        <h4>Create New Book</h4>
         <div class="alert alert-danger" role="alert" th:if=${error} th:text=${error}>
         </div>
         <form id="createBook" action="#" th:action="@{/books/create}" th:object="${book}" method="POST">
@@ -26,7 +27,7 @@
                 <label for="isbn">ISBN</label>
                 <input type="text" id="isbn" th:field="${book.isbn}" class="form-control  col-md-6 " placeholder="ISBN"
                     pattern="^97[8|9](-?[0-9]){7,10}"
-                    title="ISBN should start with 978 or 979. &#013; Should contain at least 10  digits and dash(-)."
+                    title="ISBN should start with 978 or 979.&#013;&#010;Should contain at least 10 digits and zero or more dashes(-)."
                     required>
             </div>
 

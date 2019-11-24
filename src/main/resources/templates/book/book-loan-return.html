@@ -6,27 +6,29 @@
     <title>Create Book</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script src="../../js/script.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.4.1.js"
-        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
-    <script src="../../js/script.js"></script>
     <link rel="stylesheet" type="text/css" href="../../css/myStyle.css" />
 </head>
 
 <body>
     <div id="menu"></div>
-    <div class="alert alert-danger" role="alert" th:if=${error} th:text=${error}>
-    </div>
     <div class="container">
+        <h4 th:if="${action=='loan'}"> Loan Books</h4>
+        <h4 th:if="${action=='return'}"> Return Books</h4>
+        <div class="alert alert-danger" role="alert" th:if=${error} th:text=${error}>
+        </div>
         <table class="table table-striped">
             <thead class="thead">
 
                 <tr>
-                    <th scope="col">ISBN</th>
+                    <th scope="col">#</th>
                     <th scope="col">Title</th>
                     <th scope="col" th:if="${action=='loan'}">Available for loan</th>
                     <th scope="col">Users</th>
@@ -34,8 +36,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="book : ${books}">
-                    <td th:text="${book.isbn}">
+                <tr th:each="book,iter : ${books}">
+                    <td th:text="${iter.index}+1">
                     <td th:text="${book.title}">
                     <td th:if="${action=='loan'}" th:text="${book.copiesForLoan}">
                     <td>
