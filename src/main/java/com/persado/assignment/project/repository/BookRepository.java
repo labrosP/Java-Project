@@ -2,9 +2,10 @@ package com.persado.assignment.project.repository;
 
 import com.persado.assignment.project.model.Book;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.data.repository.query.Param;
 
 /**
  *
@@ -19,6 +20,9 @@ public interface BookRepository extends JpaRepository<Book, String> {
     public List<Book> findAllOnLoan();
 
     @Query("SELECT b FROM UserBook ub JOIN ub.book b where ub.user.id=:userId ORDER BY ub.loanDate")
-    public List<Book> findBooksByUserHistorically(@PathVariable("userId") Long userId);
+    public List<Book> findBooksByUserHistorically(@Param("userId") Long userId);
+
+    @Query("SELECT b FROM UserBook ub JOIN ub.book b where ub.onloan=1 AND b.isbn=:isbn")
+    public Optional<Book> findbookOnLoan(@Param("isbn") String isbn);
 
 }

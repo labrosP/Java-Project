@@ -59,6 +59,9 @@ public class BookController {
 
     @GetMapping("delete/{isbn}")
     public String deleteBook(@PathVariable("isbn") String isbn) {
+        if (bookService.isBookOnLoan(isbn)) {
+            throw new IllegalStateException("This book is loaned by some user and can not be deleted");
+        }
         bookService.deleteById(isbn);
         return "redirect:/books/list";
     }

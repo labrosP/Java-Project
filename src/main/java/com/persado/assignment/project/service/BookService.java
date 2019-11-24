@@ -21,6 +21,8 @@ public interface BookService {
 
     public List<BookDto> findAllOnLoan();
 
+    public boolean isBookOnLoan(String isbn);
+
     public void returnBook(String isbn, Long userId);
 
     public void loanBook(String isbn, Long userId);

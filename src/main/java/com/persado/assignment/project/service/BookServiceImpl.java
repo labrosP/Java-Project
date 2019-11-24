@@ -95,4 +95,9 @@ public class BookServiceImpl implements BookService {
         }
     }
 
+    @Override
+    public boolean isBookOnLoan(String isbn) {
+        return bookRepo.findbookOnLoan(isbn).isPresent();
+    }
+
 }

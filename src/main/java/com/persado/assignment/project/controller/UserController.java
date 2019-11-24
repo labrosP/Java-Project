@@ -47,6 +47,9 @@ public class UserController {
 
     @DeleteMapping("delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long userId) {
+        if (userService.lonedBooksByUser(userId) > 0) {
+            throw new IllegalStateException("User with has books on loan and can not be deleted");
+        }
         userService.deleteById(userId);
         return "redirect:/users/list";
     }
