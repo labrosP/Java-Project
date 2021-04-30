@@ -23,10 +23,12 @@ INSERT INTO BOOK(isbn,copies,copies_for_loan,summary,title) VALUES('979-34-54678
 INSERT INTO BOOK(isbn,copies,copies_for_loan,summary,title) VALUES('979-34-54678-06',4,4,'','Harry Potter: The Half-Blood Prince');
 INSERT INTO BOOK(isbn,copies,copies_for_loan,summary,title) VALUES('979-34-54678-07',4,4,'','Harry Potter: The Deathly Hallows');
 
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(1,'9788373191723',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(4,'9788373191723',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(1,'9788373191725',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(5,'9788373191725',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(7,'979-34-45783-09',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(7,'978-34-54678-01',CURRENT_TIMESTAMP());
-INSERT INTO USER_BOOK(user_id,isbn,loan_date) VALUES(5,'979-34-54678-04',CURRENT_TIMESTAMP());
+CREATE SEQUENCE UserBook_seq start with 1 increment by 1 NO CYCLE;
+
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,1,'9788373191723',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,4,'9788373191723',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,1,'9788373191725',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,5,'9788373191725',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,7,'979-34-45783-09',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,7,'978-34-54678-01',CURRENT_TIMESTAMP());
+INSERT INTO USER_BOOK(user_Book_Id,user_id,isbn,loan_date) VALUES(UserBook_seq.nextval,5,'979-34-54678-04',CURRENT_TIMESTAMP());
