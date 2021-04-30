@@ -1,15 +1,9 @@
 package com.persado.assignment.project.service;
 
-import com.persado.assignment.project.dto.BookDto;
-import com.persado.assignment.project.mapper.BookMapper;
-import com.persado.assignment.project.model.Book;
-import com.persado.assignment.project.model.User;
-import com.persado.assignment.project.model.UserBook;
-import com.persado.assignment.project.repository.BookRepository;
+import com.persado.assignment.project.dto.UserDto;
+import com.persado.assignment.project.mapper.UserMapper;
 import com.persado.assignment.project.repository.UserRepository;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,85 +14,41 @@ import org.springframework.transaction.annotation.Transactional;
  * @author maria
  */
 @Service
-public class BookServiceImpl implements BookService {
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private BookRepository bookRepo;
     @Autowired
     private UserRepository userRepo;
     @Autowired
-    private BookMapper bookMapper;
+    private UserMapper userMapper;
 
-    public BookServiceImpl(BookRepository bookRepo, BookMapper bookMapper) {
-        this.bookRepo = bookRepo;
-        this.bookMapper = bookMapper;
+    public UserServiceImpl(UserRepository userRepo, UserMapper userMapper) {
+        this.userRepo = userRepo;
+        this.userMapper = userMapper;
     }
 
     @Override
-    public List<BookDto> findAll() {
-        return bookMapper.entityToDtoLsit(bookRepo.findAll(Sort.by("title")));
-    }
-
-    @Override
-    public boolean isbnExists(String isbn) {
-        Optional<Book> res = bookRepo.findById(isbn);
-        return res.isPresent();
+    public List<UserDto> findAll() {
+        return userMapper.entityToDtoLsit(userRepo.findAll(Sort.by("lastName", "firstName")));
     }
 
     @Transactional
-    public void save(BookDto book) {
-        bookRepo.save(bookMapper.dtoToEntity(book));
+    public void save(UserDto user) {
+        userRepo.save(userMapper.dtoToEntity(user));
     }
 
     @Transactional
-    public void deleteById(String isbn) {
-        bookRepo.deleteById(isbn);
+    public void deleteById(Long userId) {
+        userRepo.deleteById(userId);
     }
 
     @Override
-    public List<BookDto> findAllAvailable() {
-        List<BookDto> list = bookMapper.entityToDtoLsit(bookRepo.findAllAvailable());
-        return list;
+    public int lonedBooksByUser(Long userId) {
+        return userRepo.lonedBooksByUser(userId);
     }
 
     @Override
-    public List<BookDto> findAllOnLoan() {
-        return bookMapper.entityToDtoLsit(bookRepo.findAllOnLoan());
-    }
-
-    @Transactional
-    public void returnBook(String isbn, Long userId) {
-        Optional<Book> res = bookRepo.findById(isbn);
-        Optional<User> userRes = userRepo.findById(userId);
-        if (res.isPresent() && userRes.isPresent()) {
-            Book book = res.get();
-            Optional<UserBook> userBook = book.getUserbookList().stream().
-                    filter(x -> x.getUser().getId() == userId).findAny();
-            if (userBook.isPresent()) {
-                userBook.get().setOnloan(false);
-                userBook.get().setReturnDate(new Date());
-                book.setCopiesForLoan(book.getCopiesForLoan() + 1);
-            }
-            bookRepo.save(book);
-        }
-    }
-
-    @Transactional
-    public void loanBook(String isbn, Long userId) {
-        Optional<Book> res = bookRepo.findById(isbn);
-        Optional<User> userRes = userRepo.findById(userId);
-        if (res.isPresent() && userRes.isPresent()) {
-            Book book = res.get();
-            UserBook loan = new UserBook(userRes.get(), book, new Date());
-            book.setCopiesForLoan(book.getCopiesForLoan() - 1);
-            book.addUserbook(loan);
-            bookRepo.save(book);
-        }
-    }
-
-    @Override
-    public boolean isBookOnLoan(String isbn) {
-        return bookRepo.findbookOnLoan(isbn).isPresent();
+    public List<UserDto> getUsersAvailableForLoan(String isbn) {
+        return userMapper.entityToDtoLsit(userRepo.getUsersAvailableForLoan(isbn));
     }
 
 }
