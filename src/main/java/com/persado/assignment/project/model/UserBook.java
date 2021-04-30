@@ -1,16 +1,7 @@
 package com.persado.assignment.project.model;
 
 import java.util.Date;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -22,7 +13,8 @@ import javax.validation.constraints.NotNull;
 public class UserBook {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "UserBook_generator")
+    @SequenceGenerator(name = "UserBook_generator", sequenceName = "UserBook_seq", allocationSize = 1)
     private Long userBookId;
 
     @ManyToOne
