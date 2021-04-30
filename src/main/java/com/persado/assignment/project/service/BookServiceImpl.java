@@ -13,6 +13,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -44,12 +45,12 @@ public class BookServiceImpl implements BookService {
         return res.isPresent();
     }
 
-    @Override
+    @Transactional
     public void save(BookDto book) {
         bookRepo.save(bookMapper.dtoToEntity(book));
     }
 
-    @Override
+    @Transactional
     public void deleteById(String isbn) {
         bookRepo.deleteById(isbn);
     }
@@ -65,7 +66,7 @@ public class BookServiceImpl implements BookService {
         return bookMapper.entityToDtoLsit(bookRepo.findAllOnLoan());
     }
 
-    @Override
+    @Transactional
     public void returnBook(String isbn, Long userId) {
         Optional<Book> res = bookRepo.findById(isbn);
         Optional<User> userRes = userRepo.findById(userId);
@@ -82,7 +83,7 @@ public class BookServiceImpl implements BookService {
         }
     }
 
-    @Override
+    @Transactional
     public void loanBook(String isbn, Long userId) {
         Optional<Book> res = bookRepo.findById(isbn);
         Optional<User> userRes = userRepo.findById(userId);
